@@ -14,7 +14,7 @@ const router = express.Router();
 /**
  * Load hike when API with hikeId route parameter is hit
  */
-// router.param('hikeId', controller.load);
+router.param('hikeId', controller.load);
 
 router
   .route('/')

@@ -19,7 +19,7 @@ module.exports = {
       description: Joi.string().min(6).max(256).required(),
       length: Joi.number(),
       time: Joi.number(),
-      difficulty: Joi.string().valid(Hike.difficulty),
+      difficulty: Joi.string().valid(Hike.difficulties),
     },
   },
 
@@ -30,7 +30,7 @@ module.exports = {
       description: Joi.string().min(6).max(256).required(),
       length: Joi.number(),
       time: Joi.number(),
-      difficulty: Joi.string().valid(Hike.difficulty),
+      difficulty: Joi.string().valid(Hike.difficulties),
     },
     params: {
       hikeId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
@@ -44,7 +44,7 @@ module.exports = {
       description: Joi.string().min(6).max(256).required(),
       length: Joi.number(),
       time: Joi.number(),
-      difficulty: Joi.string().valid(Hike.difficulty),
+      difficulty: Joi.string().valid(Hike.difficulties),
     },
     params: {
       hikeId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
