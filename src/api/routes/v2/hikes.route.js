@@ -2,12 +2,12 @@ const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/hike.controller');
 // const { authorize, ADMIN, LOGGED_USER } = require('../../middlewares/auth');
-// const {
-//   listHikes,
-//   createHike,
-//   replaceHike,
-//   updateHike,
-// } = require('../../validations/hike.validation');
+const {
+  // listHikes,
+  createHike,
+  // replaceHike,
+  // updateHike,
+} = require('../../validations/hike.validation');
 
 const router = express.Router();
 
@@ -25,6 +25,14 @@ router
    * @apiName ListHikes
    * @apiGroup Hike
    * @apiPermission anyone
+   *
+   * @apiParam  {Number{1-}}         [page=1]       List page
+   * @apiParam  {Number{1-100}}      [perPage=1]    Hikes per page
+   * @apiParam  {String}             [title]        Hike's title
+   * @apiParam  {String}             [description]  Hike's description
+   * @apiParam  {String=user,admin}  [difficulty]   Hike's difficulty
+   *
+   * @apiSuccess {Object[]} hikes List of hikes.
    */
   .get(controller.list)
   /**
@@ -34,8 +42,27 @@ router
    * @apiName CreateHike
    * @apiGroup Hike
    * @apiPermission anyone
+   *
+   * @apiHeader {String} Authorization   Hike's access token
+   *
+   * @apiParam  {String{6..40}}  title                          Hike's title
+   * @apiParam  {String{6..256}} description                    Hike's description
+   * @apiParam  {Number}         [length]                       Hike's length
+   * @apiParam  {Number}         [time]                         Hike's time
+   * @apiParam  {String=easy,moderate,hard}  [difficulty]       Hike's difficulty
+   *
+   * @apiSuccess (Created 201) {String}  id                     Hike's id
+   * @apiSuccess (Created 201) {String}  title                  Hike's title
+   * @apiSuccess (Created 201) {String}  description            Hike's description
+   * @apiSuccess (Created 201) {String}  length                 Hike's length
+   * @apiSuccess (Created 201) {String}  time                   Hike's time
+   * @apiSuccess (Created 201) {String}  difficulty             Hike's difficulty
+   * @apiSuccess (Created 201) {Date}    createdAt              Timestamp
+   *
+   * @apiError (Bad Request 400)   ValidationError  Some parameters may contain invalid values
+   * @apiError (Unauthorized 401)  Unauthorized     Only authenticated users can create the data
    */
-  .post(controller.create);
+  .post(validate(createHike), controller.create);
 
 router
   .route('/:hikeId')

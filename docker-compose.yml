@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  boilerplate-api:
+  restful-api:
     build: .
     container_name: "${APP_NAME}-api"
     environment:
