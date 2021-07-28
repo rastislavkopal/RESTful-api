@@ -1,9 +1,11 @@
-version: "2"
+version: "3"
+
 services:
   boilerplate-api:
     build: .
+    container_name: "${APP_NAME}-api"
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/express-rest-es2017-boilerplate
+      MONGO_URI: "${MONGO_URI}"
     volumes:
       - .:/app
     ports:
@@ -13,5 +15,17 @@ services:
 
   mongodb:
     image: mongo
+    container_name: "${APP_NAME}-mongodb"
     ports:
       - "27017:27017"
+
+  mongo-gui:
+    container_name: "${APP_NAME}-mongo-gui"
+    image: ugleiton/mongo-gui
+    restart: always
+    ports:
+      - "4321:4321"
+    environment:
+      MONGO_URL: "${MONGO_URI}"
+    depends_on:
+      - mongodb

@@ -45,9 +45,6 @@ const hikeSchema = new mongoose.Schema({
  * Statics
  */
 hikeSchema.statics = {
-
-  difficulties,
-
   /**
    * Get hike
    *
@@ -75,7 +72,7 @@ hikeSchema.statics = {
    *
    * @param {number} skip - Number of hikes to be skipped.
    * @param {number} limit - Limit number of hikes to be returned.
-   * @returns {Promise<User[]>}
+   * @returns {Promise<Hike[]>}
    */
   list({
     page = 1, perPage = 30, title, description, difficulty,

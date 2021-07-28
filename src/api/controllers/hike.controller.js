@@ -31,7 +31,7 @@ exports.create = async (req, res, next) => {
     const hike = new Hike(req.body);
     const savedHike = await hike.save();
     res.status(httpStatus.CREATED);
-    res.json(savedHike.transform());
+    res.json(savedHike);
   } catch (error) {
     next(error);
   }
@@ -49,7 +49,7 @@ exports.replace = async (req, res, next) => {
     await hike.updateOne(newHike, { override: true, upsert: true });
     const savedHike = await Hike.findById(hike._id);
 
-    res.json(savedHike.transform());
+    res.json(savedHike);
   } catch (error) {
     next(error);
   }
